@@ -1,4 +1,4 @@
-const blacklist = require('metro-config/src/defaults/blacklist');
+const blacklist = require('metro-config/src/defaults/exclusionList');
 const path = require('path');
 
 const glob = require('glob-to-regexp');
@@ -8,7 +8,9 @@ function getBlacklist() {
     glob(`${path.resolve(__dirname, '..')}/node_modules/*`),
     glob(`${path.resolve(__dirname, '..')}/docs/*`),
     glob(`${path.resolve(__dirname, '..')}/e2e/*`),
-    glob(`${path.resolve(__dirname)}/node_modules/*/node_modules/fbjs/*`),
+    glob(
+      `${path.resolve(__dirname)}/node_modules/*/node_modules/lodash.isequal/*`
+    ),
     glob(
       `${path.resolve(
         __dirname
@@ -32,7 +34,7 @@ module.exports = {
     getTransformOptions: async () => ({
       transform: {
         experimentalImportSupport: false,
-        inlineRequires: false,
+        inlineRequires: true,
       },
     }),
   },
